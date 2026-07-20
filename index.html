@@ -1062,11 +1062,11 @@
     function renderHero() {
       const email = resume.contacts.emailUser + "@" + resume.contacts.emailDomain;
       const contactRows = [
-        ["意向方向", "AI 应用 / 智能工具"],
-        ["所在地", resume.location],
-        ["邮箱", email],
-        ["作品集", isFilled(resume.contacts.github) ? resume.contacts.github : "可按需补充"]
-      ].filter(row => isFilled(row[1]) || row[0] === "邮箱" || row[0] === "作品集");
+        ["意向方向", "AI 应用 / 智能工具", ""],
+        ["所在地", resume.location, "location"],
+        ["邮箱", editable("contacts.emailUser", resume.contacts.emailUser) + "@" + editable("contacts.emailDomain", resume.contacts.emailDomain), ""],
+        ["作品集", editable("contacts.github", isFilled(resume.contacts.github) ? resume.contacts.github : "可按需补充"), ""]
+      ].filter(row => isFilled(row[1]) || row[0] === "邮箱" || row[0] === "作品集" || row[2]);
 
       $("#hero").innerHTML = [
         '<div class="hero-copy panel">',
@@ -1097,7 +1097,7 @@
               '<path d="M134 348c54-40 98-38 132 4 42 50 92 42 142-10" fill="none" stroke="rgba(255,255,255,.72)" stroke-width="10" stroke-linecap="round"/>',
             '</svg>',
           '</div>',
-          '<div class="quick-list">' + contactRows.map(row => '<div class="quick-item"><span>' + row[0] + '</span><span>' + escapeHtml(row[1]) + '</span></div>').join("") + '</div>',
+          '<div class="quick-list">' + contactRows.map(row => '<div class="quick-item"><span>' + row[0] + '</span><span>' + (row[2] ? editable(row[2], row[1]) : row[1]) + '</span></div>').join("") + '</div>',
         '</aside>'
       ].join("");
 
@@ -1108,7 +1108,7 @@
     }
 
     function renderHighlights() {
-      $("#highlights").innerHTML = sectionHead("亮点成果", "HR 可在 30 秒内抓住的核心竞争力") +
+      $("#highlights").innerHTML = sectionHead("亮点成果", "") +
         '<div class="metrics">' + resume.highlights.map((item, i) =>
           '<article class="metric"><strong>' + editable("highlights." + i + ".value", item.value) + '</strong><span>' + editable("highlights." + i + ".label", item.label) + '</span></article>'
         ).join("") + '</div>';
