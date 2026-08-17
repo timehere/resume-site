@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+dist/
+tmp-video-frames/
+*.zip
+*.tgz
+installer/app/
+installer/vc_redist.x64.exe

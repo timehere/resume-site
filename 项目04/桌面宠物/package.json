@@ -1,0 +1,18 @@
+{
+  "name": "lili-desktop-pet",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A fox desktop pet with 3D and 2D RPG styles.",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "desktop": "electron .",
+    "pack": "electron-packager . 栗栗桌面宠物 --platform=darwin --arch=arm64 --out=dist --overwrite --ignore='^/node_modules($|/)' --ignore='^/dist($|/)' --ignore='^/tmp-video-frames($|/)' --ignore='^/lili-desktop-pet-.*\\\\.tgz$'",
+    "pack:universal": "electron-packager . 栗栗桌面宠物 --platform=darwin --arch=universal --out=dist --overwrite --ignore='^/node_modules($|/)' --ignore='^/dist($|/)' --ignore='^/tmp-video-frames($|/)' --ignore='^/lili-desktop-pet-.*\\\\.tgz$'",
+    "pack:windows": "electron-packager . 栗栗桌面宠物 --platform=win32 --arch=x64 --out=dist --overwrite --no-win32metadata --ignore='^/node_modules($|/)' --ignore='^/dist($|/)' --ignore='^/tmp-video-frames($|/)' --ignore='^/lili-desktop-pet-.*\\\\.tgz$'"
+  },
+  "devDependencies": {
+    "electron": "^43.2.0",
+    "electron-packager": "^17.1.2"
+  }
+}

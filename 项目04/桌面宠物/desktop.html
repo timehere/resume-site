@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>栗栗桌面宠物</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="desktop.css">
+  </head>
+  <body class="desktop-pet-body" data-desktop="true" data-style="fox3d" data-action="idle">
+    <main class="desktop-pet-shell">
+      <div class="pet-zone desktop-zone" id="petZone">
+        <div class="speech desktop-speech" id="speech">我在这里，尾巴也在认真陪你。</div>
+
+        <button class="pet-button desktop-pet-button" type="button" id="petButton" aria-label="点击狐狸互动">
+          <div class="pet pet-3d" aria-hidden="true">
+            <img class="pet-photo" src="assets/fox-reference-pet.png" alt="">
+            <span class="photo-lid photo-lid-left"></span>
+            <span class="photo-lid photo-lid-right"></span>
+            <span class="photo-yawn"></span>
+          </div>
+
+          <div class="pet pet-pixel" aria-hidden="true">
+            <img class="pixel-pet-image" src="assets/pixel-actions/pixel-idle.gif" alt="">
+          </div>
+        </button>
+
+        <div class="shadow desktop-shadow"></div>
+      </div>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
