@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>栗栗网页版宠物</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body data-platform="web" data-style="fox3d" data-action="idle">
+    <main class="web-shell">
+      <section class="web-stage-panel" aria-label="栗栗网页版宠物">
+        <div class="web-top-bar">
+          <div>
+            <p class="eyebrow">Web Pet</p>
+            <h1>栗栗</h1>
+          </div>
+          <div class="mode-switch" role="group" aria-label="风格切换">
+            <button class="mode-button is-active" type="button" data-style="fox3d">3D</button>
+            <button class="mode-button" type="button" data-style="pixel2d">2D RPG</button>
+          </div>
+        </div>
+
+        <div class="pet-zone web-pet-zone" id="petZone">
+          <div class="speech" id="speech">我在这里，尾巴也在认真陪你。</div>
+
+          <button class="pet-button" type="button" id="petButton" aria-label="点击狐狸互动">
+            <div class="pet pet-3d" aria-hidden="true">
+              <img class="pet-photo" src="assets/fox-reference-pet.png" alt="">
+              <span class="photo-lid photo-lid-left"></span>
+              <span class="photo-lid photo-lid-right"></span>
+              <span class="photo-yawn"></span>
+            </div>
+
+            <div class="pet pet-pixel" aria-hidden="true">
+              <img class="pixel-pet-image" src="assets/pixel-actions/pixel-idle.gif" alt="">
+            </div>
+          </button>
+
+          <div class="shadow"></div>
+
+          <div class="web-action-dock" role="group" aria-label="动作切换">
+            <button type="button" class="action-button is-active" data-action="idle">待机</button>
+            <button type="button" class="action-button" data-action="walk">走路</button>
+            <button type="button" class="action-button" data-action="lie">趴下</button>
+            <button type="button" class="action-button" data-action="sleep">睡觉</button>
+            <button type="button" class="action-button" data-action="yawn">打哈欠</button>
+            <button type="button" class="action-button" data-action="jump">跳一下</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
