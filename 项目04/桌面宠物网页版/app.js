@@ -124,7 +124,7 @@ function swapImage(image, src, resetSrc) {
 
 function refreshPetImages(action) {
   if (petPhoto) {
-    const basePhoto = isDesktopPet ? desktopStillPhoto : stillPhoto;
+    const basePhoto = isDesktopPet || isWebPet ? desktopStillPhoto : stillPhoto;
     swapImage(petPhoto, actionGifs[action] || basePhoto, basePhoto);
   }
   if (pixelPetImage) {
@@ -272,7 +272,8 @@ function scheduleAutonomousActivity() {
   if (autonomousTimer) window.clearTimeout(autonomousTimer);
   autonomousTimer = window.setTimeout(() => {
     const idleMs = Date.now() - lastInteraction;
-    if (!isDragging && idleMs > 4500 && currentAction === "idle") {
+    const canAct = currentAction === "idle" || currentAction === "look" || currentAction === "pet";
+    if (!isDragging && idleMs > 4500 && canAct) {
       const next = autonomousActions[Math.floor(Math.random() * autonomousActions.length)];
       say(next.line);
       setAction(next.action, { returnToIdle: next.duration });
@@ -366,7 +367,7 @@ function updateCursorLook(state) {
   const shouldLook = distance < maxDistance || state.insidePet;
   if (shouldLook && !cursorLookActive && currentAction === "idle") {
     cursorLookActive = true;
-    setAction("look");
+    setAction("look", isWebPet ? { returnToIdle: 1200 } : {});
   } else if (!shouldLook && cursorLookActive && currentAction === "look") {
     cursorLookActive = false;
     body.style.setProperty("--look-x", "0");
@@ -454,7 +455,9 @@ petZone.addEventListener("pointermove", (event) => {
   const y = event.clientY - rect.top;
   const near = x > 42 && x < rect.width - 42 && y > 16 && y < rect.height - 26;
   const head = x > rect.width * 0.35 && x < rect.width * 0.62 && y > 16 && y < rect.height * 0.42;
-  if (!isDragging && near && currentAction === "idle") setAction(head ? "pet" : "look");
+  if (!isDragging && near && currentAction === "idle") {
+    setAction(head ? "pet" : "look", isWebPet ? { returnToIdle: 1200 } : {});
+  }
 });
 
 petZone.addEventListener("pointerleave", () => {
@@ -574,3 +577,12 @@ initWebPetPosition();
 setAction("idle");
 reportDesktopHitArea();
 scheduleAutonomousActivity();
+if (isWebPet) {
+  window.setTimeout(() => {
+    if (!isDragging && currentAction === "idle") {
+      const next = autonomousActions[0];
+      say(next.line);
+      setAction(next.action, { returnToIdle: next.duration });
+    }
+  }, 1400);
+}
