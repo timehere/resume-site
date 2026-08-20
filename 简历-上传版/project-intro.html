@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>晚安随笔｜作品介绍</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --surface: rgba(255, 255, 255, .86);
+      --text: #172033;
+      --muted: #657187;
+      --line: rgba(31, 42, 68, .12);
+      --primary: #2563eb;
+      --secondary: #0f766e;
+      --shadow: 0 18px 50px rgba(27, 39, 71, .12);
+      --radius: 18px;
+      --max: 1080px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      position: relative;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    body::after {
+      z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(247, 248, 251, .94), rgba(247, 248, 251, .86) 44%, rgba(247, 248, 251, .72)),
+        radial-gradient(circle at 8% 0, rgba(37, 99, 235, .16), transparent 30rem),
+        radial-gradient(circle at 92% 8%, rgba(15, 118, 110, .14), transparent 26rem);
+      backdrop-filter: blur(1px);
+    }
+
+    .page-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+      background: #edf3fb;
+    }
+
+    .page-bg img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity var(--fade-ms, 1800ms) ease;
+      will-change: opacity;
+    }
+
+    .page-bg img:first-child,
+    .page-bg.is-ready img.is-active {
+      opacity: 1;
+    }
+
+    .page-bg.is-ready img {
+      opacity: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 34px 22px 64px;
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(260px, .5fr);
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .copy {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .copy,
+    .poster-panel {
+      min-height: 340px;
+    }
+
+    .copy {
+      padding: clamp(26px, 5vw, 48px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .eyebrow {
+      color: var(--secondary);
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(36px, 7vw, 68px);
+      line-height: 1.05;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .poster-panel {
+      padding: 22px 0;
+      display: grid;
+      place-items: center end;
+      background: transparent;
+    }
+
+    .poster-stage {
+      position: relative;
+      width: auto;
+      height: 330px;
+      max-height: 100%;
+      aspect-ratio: 9 / 16;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(27, 39, 71, .12);
+    }
+
+    .poster-stage img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .badge {
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(37, 99, 235, .08);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(27, 39, 71, .08);
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+    }
+
+    li { margin: 7px 0; }
+
+    @media (max-width: 820px) {
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero { grid-template-columns: 1fr; }
+      .copy,
+      .poster-panel { min-height: auto; }
+      .poster-panel {
+        padding: 0 22px 22px;
+        place-items: center;
+      }
+      .poster-stage {
+        width: min(320px, 100%);
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-bg" data-image-fader data-interval="3200" data-fade-ms="1800" aria-hidden="true">
+    <img src="assets/goodnight-01.png" alt="">
+    <img src="assets/goodnight-02.png" alt="">
+    <img src="assets/goodnight-03.png" alt="">
+    <img src="assets/goodnight-04.png" alt="">
+  </div>
+  <main class="wrap">
+    <div class="top">
+      <a class="back" href="index.html">← 返回简历首页</a>
+    </div>
+
+    <section class="hero">
+      <div class="copy">
+        <div class="eyebrow">AI 应用作品介绍</div>
+        <h1>晚安随笔</h1>
+        <p class="lead">一款围绕睡前提醒、随笔记录和轻社交互动设计的 AI 应用作品，面向校园生活里的情绪表达和晚间陪伴场景。</p>
+        <div class="badges">
+          <span class="badge">AI 应用</span>
+          <span class="badge">产品设计</span>
+          <span class="badge">可运行作品</span>
+          <span class="badge">校园场景</span>
+        </div>
+      </div>
+      <div class="poster-panel" aria-label="晚安随笔封面动图">
+        <div class="poster-stage">
+          <img src="assets/goodnight-detail.gif" alt="晚安随笔动态封面">
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>项目背景</h2>
+        <p>同学在晚间常有记录心情、获得提醒和轻量互动的需求。项目从这个生活场景出发，将 AI 工具能力转化为一个能被实际体验的应用。</p>
+      </article>
+
+      <article class="card">
+        <h2>核心功能</h2>
+        <ul>
+          <li>晚安提示与睡前提醒</li>
+          <li>随笔记录与情绪表达</li>
+          <li>互动反馈与轻社交体验</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h2>项目结果</h2>
+        <p>完成可运行版本，并让同学实际体验使用。项目验证了 AI 工具在校园陪伴、表达记录和生活提醒场景中的应用潜力。</p>
+      </article>
+    </section>
+  </main>
+  <script>
+    function setupImageFaders(root = document) {
+      root.querySelectorAll("[data-image-fader]").forEach(fader => {
+        const images = Array.from(fader.querySelectorAll("img"));
+        if (images.length < 2) return;
+        if (fader._fadeTimer) clearInterval(fader._fadeTimer);
+        const interval = Number(fader.dataset.interval) || 3000;
+        const fadeMs = Number(fader.dataset.fadeMs) || 1200;
+        fader.style.setProperty("--fade-ms", fadeMs + "ms");
+
+        let activeIndex = 0;
+        const show = index => {
+          activeIndex = index;
+          images.forEach((img, imageIndex) => {
+            img.classList.toggle("is-active", imageIndex === activeIndex);
+          });
+        };
+
+        const start = () => {
+          fader.classList.add("is-ready");
+          show(0);
+          fader._fadeTimer = setInterval(() => {
+            show((activeIndex + 1) % images.length);
+          }, interval);
+        };
+
+        const preload = images.map(img => {
+          if (img.complete) return Promise.resolve();
+          if (img.decode) return img.decode().catch(() => {});
+          return new Promise(resolve => {
+            img.addEventListener("load", resolve, { once: true });
+            img.addEventListener("error", resolve, { once: true });
+          });
+        });
+
+        Promise.all(preload).then(start);
+      });
+    }
+
+    setupImageFaders();
+  </script>
+</body>
+</html>
